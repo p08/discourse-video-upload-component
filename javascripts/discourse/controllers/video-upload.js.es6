@@ -105,7 +105,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
             });
 
             const checkScopeAndUpload = function () {
-                const authResponse = gapi.auth2.Instance().currentUser.get().getAuthResponse(true);
+                const authResponse = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true);
                 if (authResponse.scope.indexOf(ytScopes[0]) >= 0 && authResponse.scope.indexOf(ytScopes[1]) >= 0) {
                     component.sendFileToYoutube()
                     return true;
@@ -738,7 +738,6 @@ YoutubeUpload.prototype.sendFile_ = function() {
 
     var xhr = new XMLHttpRequest();
     xhr.open('PUT', this.url, true);
-    if (this.token) xhr.setRequestHeader('Authorization', 'Bearer ' + this.token);
     xhr.setRequestHeader('Content-Type', this.contentType);
     xhr.setRequestHeader('Content-Range', 'bytes ' + this.offset + '-' + (end - 1) + '/' + this.file.size);
     xhr.setRequestHeader('X-Upload-Content-Type', this.file.type);
@@ -758,7 +757,6 @@ YoutubeUpload.prototype.sendFile_ = function() {
 YoutubeUpload.prototype.resume_ = function() {
     var xhr = new XMLHttpRequest();
     xhr.open('PUT', this.url, true);
-    if (this.token) xhr.setRequestHeader('Authorization', 'Bearer ' + this.token);
     xhr.setRequestHeader('Content-Range', 'bytes */' + this.file.size);
     xhr.setRequestHeader('X-Upload-Content-Type', this.file.type);
     if (xhr.upload) {
