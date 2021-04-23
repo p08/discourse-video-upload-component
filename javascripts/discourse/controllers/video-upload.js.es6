@@ -738,7 +738,7 @@ YoutubeUpload.prototype.sendFile_ = function() {
 
     var xhr = new XMLHttpRequest();
     xhr.open('PUT', this.url, true);
-    xhr.setRequestHeader('Authorization', 'Bearer ' + this.token);
+    if (this.token) xhr.setRequestHeader('Authorization', 'Bearer ' + this.token);
     xhr.setRequestHeader('Content-Type', this.contentType);
     xhr.setRequestHeader('Content-Range', 'bytes ' + this.offset + '-' + (end - 1) + '/' + this.file.size);
     xhr.setRequestHeader('X-Upload-Content-Type', this.file.type);
@@ -758,7 +758,7 @@ YoutubeUpload.prototype.sendFile_ = function() {
 YoutubeUpload.prototype.resume_ = function() {
     var xhr = new XMLHttpRequest();
     xhr.open('PUT', this.url, true);
-    xhr.setRequestHeader('Authorization', 'Bearer ' + this.token);
+    if (this.token) xhr.setRequestHeader('Authorization', 'Bearer ' + this.token);
     xhr.setRequestHeader('Content-Range', 'bytes */' + this.file.size);
     xhr.setRequestHeader('X-Upload-Content-Type', this.file.type);
     if (xhr.upload) {
