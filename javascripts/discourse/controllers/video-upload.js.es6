@@ -105,7 +105,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
             });
 
             const checkScopeAndUpload = function () {
-                const authResponse = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true);
+                const authResponse = gapi.auth2.Instance().currentUser.get().getAuthResponse(true);
                 if (authResponse.scope.indexOf(ytScopes[0]) >= 0 && authResponse.scope.indexOf(ytScopes[1]) >= 0) {
                     component.sendFileToYoutube()
                     return true;
@@ -126,7 +126,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
     },
     sendFileToYoutube() {
-        const accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
+        const accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token;
         const component = this;
         const file = $("#video-file").prop('files');
         $("#youtube-upload-btn").attr('disabled', 'disabled');
