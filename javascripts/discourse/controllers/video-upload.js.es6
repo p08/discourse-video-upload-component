@@ -105,7 +105,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
             });
 
             const checkScopeAndUpload = function () {
-                const authResponse = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+                const authResponse = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true);
                 if (authResponse.scope.indexOf(ytScopes[0]) >= 0 && authResponse.scope.indexOf(ytScopes[1]) >= 0) {
                     component.sendFileToYoutube()
                     return true;
